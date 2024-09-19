@@ -1,0 +1,9 @@
+{
+  "dependencies" : [ {
+    "name" : "sdl2",
+    "version>=" : "2.30.6"
+  } ],
+  "version" : "1.0",
+  "name" : "gameengine"
+
+}
