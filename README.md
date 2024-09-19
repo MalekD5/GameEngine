@@ -7,7 +7,7 @@ For now, I will start working slowly from here.
 I will build a small game without building the game engine.
 
 ## Setup Instructions
-Please note that this project uses CLion and C++20. The target set is Visual Studio not Min 
+Please note that this project uses CLion and C++20. The target set is Visual Studio not MinGW 
  -  run `vcpkg install`
 
 # Todo
