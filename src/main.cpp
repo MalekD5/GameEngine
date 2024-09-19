@@ -1,4 +1,6 @@
 #include <SDL.h>
+
+#include "entity.h"
 #include "game.h"
 
 void update_rect(SDL_Renderer* renderer, const SDL_Rect& old_rect, const SDL_Rect& new_rect) {
@@ -18,14 +20,16 @@ int main(int argc, char* args[]) {
 
     SDL_Event event;
 
-    SDL_Rect rect;
-    rect.x = 100;
-    rect.y = 25;
-    rect.w = 120;
-    rect.h = 75;
+    EntityRect rect = {
+        1,
+        100,
+        25,
+        120,
+        75
+    };
 
     // Draw the initial scene
-    game.draw(rect);
+    game.draw(rect.getType());
 
     bool isMouseButtonDown = false;
 
@@ -47,14 +51,9 @@ int main(int argc, char* args[]) {
         }
 
         if (isMouseButtonDown) {
-            SDL_Rect old_rect = rect;
-            rect.x += 10;
-
-            if (rect.x > game.getWidth()) {
-                rect.x = game.getWidth();
+            if (rect.getType().x < game.getWidth() - rect.getType().w) {
+                rect.update(renderer, 10);
             }
-
-            update_rect(renderer, old_rect, rect);
         }
 
         SDL_Delay(16);
