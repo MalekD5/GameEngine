@@ -49,6 +49,8 @@ int main(int argc, char* args[]) {
     // Draw the initial scene
     draw(renderer, rect);
 
+    bool isMouseButtonDown = false;
+
     while (running) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
@@ -56,13 +58,24 @@ int main(int argc, char* args[]) {
                 break;
             }
 
-            if (event.type == SDL_MOUSEBUTTONDOWN) {
-                SDL_Rect old_rect = rect;
-                rect.x += 10;
+            if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+                isMouseButtonDown = true;
+            }
 
-                update_rect(renderer, old_rect, rect);
+            // Check if the left mouse button is released
+            if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
+                isMouseButtonDown = false;
             }
         }
+
+        if (isMouseButtonDown) {
+            SDL_Rect old_rect = rect;
+            rect.x += 10;
+
+            update_rect(renderer, old_rect, rect);
+        }
+
+        SDL_Delay(16);
     }
 
     SDL_DestroyRenderer(renderer);
