@@ -1,17 +1,26 @@
 #include <SDL.h>
 
 void draw(SDL_Renderer* renderer, const SDL_Rect& rect) {
-    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255); // Set the background color to purple
+    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);
     SDL_RenderClear(renderer);
 
-
-    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderFillRect(renderer, &rect);
+
     SDL_RenderPresent(renderer);
 }
 
-int main (int argc, char* args[]) {
+void update_rect(SDL_Renderer* renderer, const SDL_Rect& old_rect, const SDL_Rect& new_rect) {
+    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);
+    SDL_RenderFillRect(renderer, &old_rect);
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderFillRect(renderer, &new_rect);
+
+    SDL_RenderPresent(renderer);
+}
+
+int main(int argc, char* args[]) {
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window* window = SDL_CreateWindow("Blank Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
@@ -37,20 +46,21 @@ int main (int argc, char* args[]) {
     rect.w = 120;
     rect.h = 75;
 
+    // Draw the initial scene
     draw(renderer, rect);
 
     while (running) {
-        // Close window with any input
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 running = false;
                 break;
             }
 
-
             if (event.type == SDL_MOUSEBUTTONDOWN) {
-                rect.x += 1;
-                draw(renderer, rect);
+                SDL_Rect old_rect = rect;
+                rect.x += 10;
+
+                update_rect(renderer, old_rect, rect);
             }
         }
     }
