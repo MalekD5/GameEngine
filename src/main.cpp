@@ -3,16 +3,6 @@
 #include "entity.h"
 #include "game.h"
 
-void update_rect(SDL_Renderer* renderer, const SDL_Rect& old_rect, const SDL_Rect& new_rect) {
-    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);
-    SDL_RenderFillRect(renderer, &old_rect);
-
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &new_rect);
-
-    SDL_RenderPresent(renderer);
-}
-
 int main(int argc, char* args[]) {
     Game game;
 
