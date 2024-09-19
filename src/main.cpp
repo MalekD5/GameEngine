@@ -1,5 +1,16 @@
 #include <SDL.h>
 
+void draw(SDL_Renderer* renderer, const SDL_Rect& rect) {
+    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255); // Set the background color to purple
+    SDL_RenderClear(renderer);
+
+
+    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+
+    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderPresent(renderer);
+}
+
 int main (int argc, char* args[]) {
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -26,14 +37,7 @@ int main (int argc, char* args[]) {
     rect.w = 120;
     rect.h = 75;
 
-    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255); // Set the background color to purple
-    SDL_RenderClear(renderer);
-
-
-    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-
-    SDL_RenderFillRect(renderer, &rect);
-    SDL_RenderPresent(renderer);
+    draw(renderer, rect);
 
     while (running) {
         // Close window with any input
@@ -46,8 +50,7 @@ int main (int argc, char* args[]) {
 
             if (event.type == SDL_MOUSEBUTTONDOWN) {
                 rect.x += 1;
-                SDL_RenderFillRect(renderer, &rect);
-                SDL_RenderPresent(renderer);
+                draw(renderer, rect);
             }
         }
     }
