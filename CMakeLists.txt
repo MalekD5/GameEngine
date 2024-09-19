@@ -7,7 +7,9 @@ set(CMAKE_CXX_STANDARD 14)
 # Must set the path to the main.cpp, for example: scripts/main.cpp if it is inside a folder
 add_executable(${PROJECT_NAME} src/main.cpp
         src/game.cpp
-        src/game.h)
+        src/game.h
+        src/entity.cpp
+        src/entity.h)
 
 # --- SDL2 SETUP ---
 find_package(SDL2 CONFIG REQUIRED)
