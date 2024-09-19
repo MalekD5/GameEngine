@@ -1,14 +1,5 @@
 #include <SDL.h>
-
-void draw(SDL_Renderer* renderer, const SDL_Rect& rect) {
-    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);
-    SDL_RenderClear(renderer);
-
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &rect);
-
-    SDL_RenderPresent(renderer);
-}
+#include "game.h"
 
 void update_rect(SDL_Renderer* renderer, const SDL_Rect& old_rect, const SDL_Rect& new_rect) {
     SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);
@@ -21,23 +12,10 @@ void update_rect(SDL_Renderer* renderer, const SDL_Rect& old_rect, const SDL_Rec
 }
 
 int main(int argc, char* args[]) {
-    SDL_Init(SDL_INIT_VIDEO);
+    Game game;
 
-    SDL_Window* window = SDL_CreateWindow("Blank Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
-    if (window == nullptr) {
-        SDL_Log("Failed to create window: %s", SDL_GetError());
-        return 1;
-    }
+    SDL_Renderer* renderer = game.getRenderer();
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == nullptr) {
-        SDL_Log("Failed to create renderer: %s", SDL_GetError());
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
-
-    bool running = true;
     SDL_Event event;
 
     SDL_Rect rect;
@@ -47,14 +25,14 @@ int main(int argc, char* args[]) {
     rect.h = 75;
 
     // Draw the initial scene
-    draw(renderer, rect);
+    game.draw(rect);
 
     bool isMouseButtonDown = false;
 
-    while (running) {
+    while (game.isRunning()) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
-                running = false;
+                game.setRunning(false);
                 break;
             }
 
@@ -72,14 +50,16 @@ int main(int argc, char* args[]) {
             SDL_Rect old_rect = rect;
             rect.x += 10;
 
+            if (rect.x > game.getWidth()) {
+                rect.x = game.getWidth();
+            }
+
             update_rect(renderer, old_rect, rect);
         }
 
         SDL_Delay(16);
     }
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    game.destroy();
     return 0;
 }
