@@ -20,28 +20,36 @@ int main (int argc, char* args[]) {
     bool running = true;
     SDL_Event event;
 
+    SDL_Rect rect;
+    rect.x = 100;
+    rect.y = 25;
+    rect.w = 120;
+    rect.h = 75;
+
+    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255); // Set the background color to purple
+    SDL_RenderClear(renderer);
+
+
+    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+
+    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderPresent(renderer);
+
     while (running) {
         // Close window with any input
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT || event.type == SDL_KEYDOWN || event.type == SDL_MOUSEBUTTONDOWN) {
+            if (event.type == SDL_QUIT) {
                 running = false;
                 break;
             }
+
+
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                rect.x += 1;
+                SDL_RenderFillRect(renderer, &rect);
+                SDL_RenderPresent(renderer);
+            }
         }
-
-        SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255); // Set the background color to purple
-        SDL_RenderClear(renderer);
-
-
-        SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-        SDL_Rect rect;
-        rect.x = 100;
-        rect.y = 25;
-        rect.w = 120;
-        rect.h = 75;
-
-        SDL_RenderFillRect(renderer, &rect);
-        SDL_RenderPresent(renderer);
     }
 
     SDL_DestroyRenderer(renderer);
