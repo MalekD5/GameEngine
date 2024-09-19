@@ -1,6 +1,8 @@
 ## Clions Project
-cmake-build-debug/*
-!cmake-build-debug/SDL2.dll
+cmake-build-debug-visual-studio/*
+!cmake-build-debug-visual-studio/SDL2.dll
+
+vcpkg_installed
 
 # cmake/
 .idea/
