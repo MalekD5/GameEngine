@@ -1,6 +1,7 @@
 ## Clions Project
 cmake-build-debug/*
 !cmake-build-debug/SDL2.dll
+
 # cmake/
 .idea/
 
@@ -49,3 +50,6 @@ _deps
 *.exe
 *.out
 *.app
+
+# SDL2 Folder
+SDL2
