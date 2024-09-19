@@ -11,4 +11,4 @@ Please note that this project uses CLion and C++20. The target set is Visual Stu
  -  run `vcpkg install`
 
 # Todo
-- integrate a package manager called vcpkg
+- ~~integrate a package manager called vcpkg~~
