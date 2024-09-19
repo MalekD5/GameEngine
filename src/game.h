@@ -31,7 +31,7 @@ struct Game {
     void draw(const SDL_Rect& rect) const;
     void destroy() const;
     bool isRunning() const;
-    void setRunning(const bool running);
+    void setRunning(bool running);
     int getHeight() const;
     int getWidth() const;
 
